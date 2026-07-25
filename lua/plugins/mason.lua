@@ -1,4 +1,4 @@
--- Mason: install LSP server binaries
+-- Mason: install LSP server + formatter binaries
 -- nvim-lspconfig: provides lsp/*.lua config files for all servers
 -- mason-lspconfig: auto-enables servers when Mason installs them
 return {
