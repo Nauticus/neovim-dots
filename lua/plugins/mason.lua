@@ -16,6 +16,12 @@ return {
     require("mason-lspconfig").setup({
       ensure_installed = {}, -- add servers here for auto-install on start
       automatic_installation = true, -- auto-install when opening a supported file
+      handlers = {
+        function(server)
+          local capabilities = require("blink.cmp").get_lsp_capabilities()
+          require("lspconfig")[server].setup({ capabilities = capabilities })
+        end,
+      },
     })
   end,
 }
