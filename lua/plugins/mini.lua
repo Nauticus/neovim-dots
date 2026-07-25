@@ -14,16 +14,16 @@ return {
         -- Custom clues for leader key groups (normal mode)
         { mode = "n", keys = "<leader>a", desc = "Clanker" },
         { mode = "n", keys = "<leader>c", desc = "Code" },
-        { mode = "n", keys = "<leader>g", desc = "Git" },
         { mode = "n", keys = "<leader>f", desc = "Find" },
+        { mode = "n", keys = "<leader>g", desc = "Git" },
         { mode = "n", keys = "<leader>l", desc = "LSP" },
         { mode = "n", keys = "<leader>o", desc = "Other" },
 
         -- Same groups in visual mode
         { mode = "x", keys = "<leader>a", desc = "Clanker" },
         { mode = "x", keys = "<leader>c", desc = "Code" },
-        { mode = "x", keys = "<leader>g", desc = "Git" },
         { mode = "x", keys = "<leader>f", desc = "Find" },
+        { mode = "x", keys = "<leader>g", desc = "Git" },
         { mode = "x", keys = "<leader>l", desc = "LSP" },
         { mode = "x", keys = "<leader>o", desc = "Other" },
       },
