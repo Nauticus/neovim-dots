@@ -1,13 +1,10 @@
 return {
   "mbbill/undotree",
+  -- UndoTree reads undo files from disk — pointless with undofile disabled.
+  -- Also disabled on Windows where it had issues and is now unused.
+  enabled = (vim.fn.has("win32") ~= 1),
   event = "BufReadPost",
-  config = function()
-    if vim.fn.has("win32") == 1 then
-      vim.g.undotree_DiffAutoOpen = 0
-      -- or point to a diff.exe if you want the diff panel:
-      -- vim.g.undotree_DiffCommand = "C:\\Program Files\\Git\\usr\\bin\\diff.exe"
-    end
-
-    vim.keymap.set("n", "<leader>ou", "<cmd>UndotreeToggle<cr>", { desc = "UndoTree" })
-  end,
+  keys = {
+    { "<leader>ou", "<cmd>UndotreeToggle<cr>", desc = "UndoTree" },
+  },
 }

@@ -3,8 +3,7 @@ return {
   lazy = true,
   config = function()
     require("sidekick").setup({
-      -- Disable NES (requires GitHub Copilot) — we only need the CLI terminal
-      nes = { enabled = false },
+      nes = { enabled = true },
       cli = {
         tools = {
           pi = {

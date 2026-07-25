@@ -27,11 +27,15 @@ return {
     local conform = require("conform")
 
     conform.setup({
-      -- Run formatters in parallel for best performance
+      -- format_on_save writes the file on every save.
+      -- On IO-throttled machines, consider disabling and using <leader>cf manually.
       format_on_save = {
         timeout_ms = 500,
         lsp_fallback = true,
       },
+      -- On heavily throttled machines, uncomment this to disable auto-format on save:
+      -- format_on_save = false,
+
       -- Log noisy output (debug only)
       log_level = vim.log.levels.ERROR,
 

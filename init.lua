@@ -3,6 +3,18 @@
 require("options")
 require("keymaps")
 
+-- Lazy-load plugins after a short delay (reduces startup IO burst)
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
+  group = vim.api.nvim_create_augroup("LazyPluginTrigger", { clear = true }),
+  once = true,
+  callback = function()
+    -- Fire after 500ms to batch file opens
+    vim.defer_fn(function()
+      vim.api.nvim_exec_autocmds("User", { pattern = "FileLoaded" })
+    end, 500)
+  end,
+})
+
 -- Install Lazy.nvim if not present
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
