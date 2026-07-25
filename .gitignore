@@ -1,0 +1,9 @@
+# Lazy.nvim cache
+/.lazy/
+
+# Lua bytecode
+*.lua.*
+*.luac
+
+# Build artifacts
+build/
