@@ -1,6 +1,5 @@
--- Mason: install LSP server + formatter binaries
--- nvim-lspconfig: provides lsp/*.lua config files for all servers
--- mason-lspconfig: auto-enables servers when Mason installs them
+-- Mason: installs all tool binaries (LSP servers + formatters)
+-- mason-lspconfig: connects Mason-installed LSP servers to Neovim
 return {
   "mason-org/mason.nvim",
   lazy = false,
@@ -10,14 +9,28 @@ return {
     "williamboman/mason-lspconfig.nvim",
   },
   config = function()
-    require("mason").setup({})
+    require("mason").setup({
+      ensure_installed = {
+        -- LSP servers
+        "lua_ls",
+        "tailwindcss",
+        -- Formatters (conform.nvim calls these binaries)
+        "stylua",
+        "prettier",
+        "black",
+        "autopep8",
+        "shfmt",
+        "goimports",
+        "gofmt",
+        "rustfmt",
+        "clang-format",
+        "sqlformat",
+        "dockerfile-formatter",
+      },
+    })
 
-    -- Auto-enable all Mason-installed LSP servers
+    -- Connect Mason LSP servers to Neovim
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "tailwindcss" }, -- add servers here for auto-install on start
-      -- On IO-throttled machines: disable automatic installation.
-      -- Auto-installing LSP servers spawns processes and writes on every new file type.
-      -- Set to false and manually :Mason install servers you need.
       automatic_installation = true,
       handlers = {
         function(server)

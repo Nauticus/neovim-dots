@@ -104,9 +104,7 @@ return {
       },
     })
 
-    -- Formatters are installed via Mason:
-    --   :Mason -> search "prettier", "stylua", etc.
-    -- mason-conform auto-maps them to conform's formatter names.
-    -- Check status: :ConformInfo
+    -- Formatters are installed by Mason (see lua/plugins/mason.lua).
+    -- conform.nvim just calls those binaries. Check status: :ConformInfo
   end,
 }
