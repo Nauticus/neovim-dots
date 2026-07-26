@@ -14,19 +14,23 @@ return {
   },
   keys = {
     -- Global keymaps (outside diffview)
-    { "<leader>go", "<cmd>DiffviewOpen<cr>",            desc = "Diffview open" },
-    { "<leader>gc", "<cmd>DiffviewClose<cr>",           desc = "Diffview close" },
-    { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>",   desc = "File history (current file)" },
-    { "<leader>gH", "<cmd>DiffviewFileHistory<cr>",     desc = "File history (repo)" },
-    { "<leader>gD", function()
-      -- Diff against main/master with fallback
-      local result = vim.fn.systemlist({ "git", "rev-parse", "--verify", "main" })
-      local ok = vim.v.shell_error == 0 and result[1] and result[1] ~= ""
-      local branch = ok and "main" or "master"
-      vim.cmd("DiffviewOpen " .. branch)
-    end, desc = "Diff against main/master" },
+    { "<leader>go", "<cmd>DiffviewOpen<cr>", desc = "Diffview open" },
+    { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "Diffview close" },
+    { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history (current file)" },
+    { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "File history (repo)" },
+    {
+      "<leader>gD",
+      function()
+        -- Diff against main/master with fallback
+        local result = vim.fn.systemlist({ "git", "rev-parse", "--verify", "main" })
+        local ok = vim.v.shell_error == 0 and result[1] and result[1] ~= ""
+        local branch = ok and "main" or "master"
+        vim.cmd("DiffviewOpen " .. branch)
+      end,
+      desc = "Diff against main/master",
+    },
     { "<leader>gl", ".<cmd>DiffviewFileHistory --follow<cr>", desc = "Line history" },
-    { "v", "<leader>gh", "'<,'>DiffviewFileHistory --follow",  desc = "Range history" },
+
   },
   opts = {
     enhanced_diff_hl = true,
@@ -59,9 +63,9 @@ return {
       view = { { "n", "<leader>q", "DiffviewClose", { desc = "Close diffview" } } },
       -- File panel keymaps
       file_panel = {
-        { "n", "<leader>q", "DiffviewClose",        { desc = "Close diffview" } },
-        { "n", "<C-d>",    "DiffviewRefresh",       { desc = "Refresh" } },
-        { "n", "<C-f>",    "DiffviewToggleFiles",   { desc = "Toggle file panel" } },
+        { "n", "<leader>q", "DiffviewClose", { desc = "Close diffview" } },
+        { "n", "<C-d>", "DiffviewRefresh", { desc = "Refresh" } },
+        { "n", "<C-f>", "DiffviewToggleFiles", { desc = "Toggle file panel" } },
       },
       -- Diff buffer keymaps
       diff_files = {

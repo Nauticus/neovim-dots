@@ -6,12 +6,21 @@ return {
     vim.o.timeoutlen = 300
   end,
   opts = {
+    ai = {
+      -- Incremental selection (visual mode) like vim-expand-region
+      -- Defaults an/in/al/il conflict with treesitter textobjects
+      selection_keys = {
+        around_next  = '<C-a>',  -- expand selection
+        inside_next  = '<C-a>',
+        around_last  = '<C-x>',  -- shrink selection
+        inside_last  = '<C-x>',
+      },
+    },
     clue = {
-      -- Show clues after a short delay (in ms)
       window = { delay = 100 },
 
       clues = {
-        -- Custom clues for leader key groups (normal mode)
+        -- Leader key groups
         { mode = "n", keys = "<leader>a", desc = "Clanker" },
         { mode = "n", keys = "<leader>c", desc = "Code" },
         { mode = "n", keys = "<leader>f", desc = "Find" },
@@ -19,7 +28,6 @@ return {
         { mode = "n", keys = "<leader>l", desc = "LSP" },
         { mode = "n", keys = "<leader>o", desc = "Other" },
 
-        -- Same groups in visual mode
         { mode = "x", keys = "<leader>a", desc = "Clanker" },
         { mode = "x", keys = "<leader>c", desc = "Code" },
         { mode = "x", keys = "<leader>f", desc = "Find" },
@@ -33,33 +41,35 @@ return {
         active = function()
           local statusline = require("mini.statusline")
           local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
-          local git = statusline.section_git({ trunc_width = 40 })
           local diff = statusline.section_diff({ trunc_width = 75 })
           local diagnostics = statusline.section_diagnostics({ trunc_width = 75 })
-          local lsp = statusline.section_lsp({ trunc_width = 75 })
+          local lsp = statusline.section_lsp({ trunc_width = 75, icon = "󰰎" })
           local filename = statusline.section_filename({ trunc_width = 140 })
           local fileinfo = statusline.section_fileinfo({ trunc_width = 120 })
-          local location = statusline.section_location({ trunc_width = 75 })
-          local search = statusline.section_searchcount({ trunc_width = 75 })
+          local git_branch = statusline.section_git({ trunc_width = 75 })
 
           return statusline.combine_groups({
             { hl = mode_hl, strings = { mode } },
-            { hl = "MiniStatuslineDevinfo", strings = { git, diff, diagnostics, lsp } },
+            { hl = "MiniStatuslineDevinfo", strings = { diagnostics, lsp } },
             "%<",
             { hl = "MiniStatuslineFilename", strings = { filename } },
             "%=",
             { hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
-            { hl = mode_hl, strings = { search, location } },
+            { hl = "MiniStatuslineDevinfo", strings = { diff, git_branch } },
           })
         end,
       },
     },
   },
   config = function(_, opts)
+    local mini_ai = require("mini.ai")
     local mini_clue = require("mini.clue")
     local mini_statusline = require("mini.statusline")
 
-    -- Add built-in clue generators (must be in config where mini_clue is available)
+    -- MiniAi (textobjects + incremental selection)
+    mini_ai.setup(opts.ai)
+
+    -- Add built-in clue generators
     local built_in_clues = {
       mini_clue.gen_clues.square_brackets(),
       mini_clue.gen_clues.g(),
@@ -73,26 +83,16 @@ return {
     }
     opts.clue.clues = vim.list_extend(built_in_clues, opts.clue.clues)
 
-    -- Add leader trigger (clues show automatically on trigger key press)
+    -- Add leader trigger
     mini_clue.setup(vim.tbl_deep_extend("force", opts.clue, {
       triggers = {
-        -- Leader key
         { mode = { "n", "x" }, keys = "<Leader>" },
-
-        -- `[` and `]` keys
+        { mode = { "n", "x" }, keys = "<LocalLeader>" },
         { mode = "n", keys = "[" },
         { mode = "n", keys = "]" },
-
-        -- `g` key
         { mode = { "n", "x" }, keys = "g" },
-
-        -- `z` key
         { mode = { "n", "x" }, keys = "z" },
-
-        -- Window commands
         { mode = "n", keys = "<C-w>" },
-
-        -- Built-in completion
         { mode = "i", keys = "<C-x>" },
       },
     }))

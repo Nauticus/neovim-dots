@@ -1,6 +1,22 @@
 return {
   "lewis6991/gitsigns.nvim",
-  event = "User FileLoaded",  -- lazy trigger instead of every BufRead
+  event = "User FileLoaded", -- lazy trigger instead of every BufRead
+  keys = {
+    {
+      "]h",
+      function()
+        require("gitsigns").nav_hunk("next")
+      end,
+      desc = "Git next hunk",
+    },
+    {
+      "[h",
+      function()
+        require("gitsigns").nav_hunk("prev")
+      end,
+      desc = "Git prev hunk",
+    },
+  },
   opts = {
     signs = {
       add = { text = "+" },
@@ -14,9 +30,9 @@ return {
     -- or disable auto-updates entirely and only update on demand:
     -- on_attach = function(bufnr) require("gitsigns").notify({ bufnr = bufnr }) end,
     -- Current: use defaults but delay git status calls
-    current_line_blame = false,  -- don't auto-trigger blame
+    current_line_blame = false, -- don't auto-trigger blame
     watch_gitdir = {
-      interval = 1000,  -- increase poll interval (default 1000, set higher if needed)
+      interval = 1000, -- increase poll interval (default 1000, set higher if needed)
     },
     -- Skip large/deep repos to save IO
     -- preview_config = { timeout = 1000 },
@@ -37,31 +53,51 @@ return {
         vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
       end
 
-      -- Hunk navigation
-      map("n", "]g", function() gs.nav_hunk("next") end, "Git next hunk")
-      map("n", "[g", function() gs.nav_hunk("prev") end, "Git prev hunk")
-
       -- Staging
-      map("n", "<leader>gs", function() gs.stage_hunk() end, "Git stage hunk")
-      map("v", "<leader>gs", function() gs.stage_hunk() end, "Git stage hunk (visual)")
-      map("n", "<leader>gS", function() gs.stage_buffer() end, "Git stage buffer")
-      map("n", "<leader>gu", function() gs.undo_stage_hunk() end, "Git undo stage hunk")
+      map("n", "<leader>gS", function()
+        gs.stage_buffer()
+      end, "Git stage buffer")
 
       -- Reset
-      map("n", "<leader>gr", function() gs.reset_hunk() end, "Git reset hunk")
-      map("v", "<leader>gr", function() gs.reset_hunk() end, "Git reset hunk (visual)")
-      map("n", "<leader>grs", function() gs.reset_buffer() end, "Git reset buffer")
+      map("n", "<leader>gR", function()
+        gs.reset_buffer()
+      end, "Git reset buffer")
 
-      -- Preview
-      map("n", "<leader>gp", function() gs.preview_hunk() end, "Git preview hunk")
-      map("n", "<leader>gP", function() gs.preview_hunk_inline() end, "Git preview hunk inline")
+      -- Hunk operations (<leader>gh)
+      map("n", "<leader>ghs", function()
+        gs.stage_hunk()
+      end, "Git stage hunk")
+      map("v", "<leader>ghs", function()
+        gs.stage_hunk()
+      end, "Git stage hunk (visual)")
+      map("n", "<leader>ghu", function()
+        gs.undo_stage_hunk()
+      end, "Git undo stage hunk")
+      map("n", "<leader>ghr", function()
+        gs.reset_hunk()
+      end, "Git reset hunk")
+      map("v", "<leader>ghr", function()
+        gs.reset_hunk()
+      end, "Git reset hunk (visual)")
+      map("n", "<leader>ghp", function()
+        gs.preview_hunk()
+      end, "Git preview hunk")
+      map("n", "<leader>ghP", function()
+        gs.preview_hunk_inline()
+      end, "Git preview hunk inline")
 
       -- Blame
-      map("n", "<leader>gb", function() gs.blame_line() end, "Git blame line")
-      map("n", "<leader>gB", function() gs.blame_line({ full = true }) end, "Git blame (full)")
+      map("n", "<leader>gb", function()
+        gs.blame_line()
+      end, "Git blame line")
+      map("n", "<leader>gB", function()
+        gs.blame_line({ full = true })
+      end, "Git blame (full)")
 
       -- Diff
-      map("n", "<leader>gd", function() gs.diffthis() end, "Git diff this")
+      map("n", "<leader>gd", function()
+        gs.diffthis()
+      end, "Git diff this")
     end,
   },
 }

@@ -14,7 +14,7 @@ return {
 
     -- Auto-enable all Mason-installed LSP servers
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls" }, -- add servers here for auto-install on start
+      ensure_installed = { "lua_ls", "tailwindcss" }, -- add servers here for auto-install on start
       -- On IO-throttled machines: disable automatic installation.
       -- Auto-installing LSP servers spawns processes and writes on every new file type.
       -- Set to false and manually :Mason install servers you need.

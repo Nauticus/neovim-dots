@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -33,11 +34,16 @@ vim.g.loaded_matchit = 1
 vim.g.loaded_man = 1
 vim.g.loaded_tutor_mode_plugin = 1
 
+-- Mini.clue highlights (ensure descriptions are visible in default dark theme)
+vim.api.nvim_set_hl(0, "MiniClueDescSingle", { fg = "#d4d4d4" })
+vim.api.nvim_set_hl(0, "MiniClueDescGroup", { fg = "#d4d4d4" })
+
 -- Persistent undo disabled (IO-throttled machines)
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.undofile = false
 
 -- IO reduction
+vim.opt.updatetime = 500   -- CursorHold trigger (document highlight), swap file write
 vim.opt.updatecount = 1000
 vim.opt.directory = vim.fn.stdpath("data") .. "/swap//"
 vim.opt.backup = false

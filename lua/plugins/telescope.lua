@@ -1,10 +1,12 @@
 return {
   "nvim-telescope/telescope.nvim",
   version = "*",
+  lazy = false, -- load at startup so vim.ui.select is available for LSP code actions
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install" },
+    { "nvim-telescope/telescope-ui-select.nvim", lazy = false },
   },
   keys = {
     { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "Find files" },
@@ -30,10 +32,12 @@ return {
     local telescope = require("telescope")
     local actions = require("telescope.actions")
 
-    -- Load fzf-native extension (overrides default sorter for better performance)
-    telescope.load_extension("fzf")
-
     telescope.setup({
+      extensions = {
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown {},
+        },
+      },
       defaults = {
         path_display = { "smart" },
         sorting_strategy = "ascending",
@@ -54,12 +58,10 @@ return {
       },
     })
 
-    -- Set Telescope as the default picker for vim.ui.select
-    vim.ui.select = function(...)
-      return require("telescope.ui").pick(...)
-    end
+    -- Load fzf-native extension (overrides default sorter for better performance)
+    telescope.load_extension("fzf")
 
-    -- Command-line completions (e.g. :lua vim.ui.select(...))
-    _G.telescope = telescope
+    -- Wire vim.ui.select to telescope (for LSP code actions, etc.)
+    telescope.load_extension("ui-select")
   end,
 }

@@ -18,3 +18,6 @@ vim.keymap.set("n", "<C-" .. move_keys[4] .. ">", "<C-w>l")
 vim.keymap.set("n", "<Esc>", "<Cmd>nohlsearch<CR>")
 
 -- Oil.nvim keymap is defined in lua/plugins/oil.lua (keys spec)
+
+-- LSP info panel (shows attached servers)
+vim.keymap.set("n", "<leader>li", "<Cmd>LspInfo<CR>", { desc = "LSP: Info" })
