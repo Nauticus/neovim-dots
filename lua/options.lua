@@ -16,6 +16,8 @@ vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.wrap = false
 
+vim.opt.list = true  -- show trailing whitespace (trail: -), tabs, etc.
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
