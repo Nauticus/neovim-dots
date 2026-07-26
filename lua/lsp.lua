@@ -17,8 +17,12 @@
 -- Note: formatting is handled by conform.nvim (<leader>cf)
 
 -- Diagnostic navigation (global)
-vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Previous Diagnostic" })
-vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, { desc = "Next Diagnostic" })
+vim.keymap.set("n", "[d", function()
+  vim.diagnostic.jump({ count = -1 })
+end, { desc = "Previous Diagnostic" })
+vim.keymap.set("n", "]d", function()
+  vim.diagnostic.jump({ count = 1 })
+end, { desc = "Next Diagnostic" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -41,24 +45,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
     meta[bufnr] = true
 
     -- Go to definition (gd/gD)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition,
-      { buffer = bufnr, desc = "Go to Definition" })
-    vim.keymap.set("n", "gD", vim.lsp.buf.definition,
-      { buffer = bufnr, desc = "Go to Definition (from line 1)" })
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
+    vim.keymap.set("n", "gD", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition (from line 1)" })
 
     -- Code actions under <leader>l
-    vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action,
-      { buffer = bufnr, desc = "Code Action" })
-    vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition,
-      { buffer = bufnr, desc = "Go to Definition" })
-    vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename,
-      { buffer = bufnr, desc = "Rename Symbol" })
+    vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
+    vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
+    vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename Symbol" })
 
     -- Document highlight (LspReference* groups) on CursorHold, clear on move
     -- Check at runtime whether any attached client supports the method
     local function has_document_highlight()
       for _, c in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-        if c:supports_method('textDocument/documentHighlight') then
+        if c:supports_method("textDocument/documentHighlight") then
           return true
         end
       end

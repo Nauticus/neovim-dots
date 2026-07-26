@@ -21,3 +21,7 @@ vim.keymap.set("n", "<Esc>", "<Cmd>nohlsearch<CR>")
 
 -- LSP info panel (shows attached servers)
 vim.keymap.set("n", "<leader>li", "<Cmd>LspInfo<CR>", { desc = "LSP: Info" })
+
+-- Built-in undotree (Neovim 0.12+) — opens if closed, closes if open
+vim.keymap.set("n", "<localleader>u", "<Cmd>Undotree<CR>", { desc = "Toggle UndoTree" })
+vim.keymap.set("i", "<localleader>u", "<Esc><Cmd>Undotree<CR>", { desc = "Toggle UndoTree" })

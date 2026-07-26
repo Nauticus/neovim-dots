@@ -36,6 +36,7 @@ return {
         { mode = "x", keys = "<leader>o", desc = "Other" },
       },
     },
+    surround = {}, -- use defaults: sa/sd/sr/sf/sh, custom_surroundings = {}
     statusline = {
       content = {
         active = function()
@@ -99,5 +100,8 @@ return {
 
     -- Setup statusline
     mini_statusline.setup(opts.statusline)
+
+    -- Setup surround
+    require("mini.surround").setup(opts.surround)
   end,
 }

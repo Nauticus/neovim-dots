@@ -34,7 +34,17 @@ require("lazy").setup({
   spec = "plugins",
   change_detection = { notify = false },
   rocks = { enabled = false },
+  performance = {
+    rtp = {
+      paths = {
+        vim.env.VIMRUNTIME .. "/pack/dist/opt/nvim.undotree",
+      },
+    },
+  },
 })
+
+-- Source undotree plugin after lazy rtp setup
+vim.cmd("runtime! pack/dist/opt/nvim.undotree/plugin/*.lua")
 
 -- LSP (deferred until after lazy.nvim is done loading)
 require("lsp")

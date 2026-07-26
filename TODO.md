@@ -15,11 +15,6 @@
   - [https://github.com/mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap)
   - [https://github.com/rcarriga/nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)
 
-- [ ] **Comment plugin** — `gcc` to toggle line comments
-  - Option A: Built-in `nc` (Neovim 0.10+)
-  - Option B: `ts-comments` (treesitter-aware, respects language syntax)
-  - [https://github.com/folke/ts-comments.nvim](https://github.com/folke/ts-comments.nvim)
-
 - [ ] **Session management** — Save/restore workspace on restart
   - Preserves open buffers, splits, cwd
   - Option A: `possession.nvim` (lightweight)
@@ -53,8 +48,11 @@
   - Hides UI chrome, centers buffer
   - [https://github.com/folke/zen-mode.nvim](https://github.com/folke/zen-mode.nvim)
 
-- [ ] **neotest** — Run/debug tests from within Neovim
+- [x] **neotest** — Run/debug tests from within Neovim
   - Tree view of test results, run by file/function/test
+  - Vitest adapter: `marilari88/neotest-vitest`
+  - Config: `lua/plugins/neotest.lua`
+  - Mappings: `<leader>tt` (file), `<leader>tr` (nearest), `<leader>td` (debug), `<leader>ts` (stop), `<leader>tl` (last), `<leader>tS` (summary), `<leader>to` (output), `<leader>tp` (output panel)
   - [https://github.com/nvim-neotest/neotest](https://github.com/nvim-neotest/neotest)
 
 - [ ] **mini.indentscope** — Visual indentation guides
@@ -67,7 +65,8 @@
 
 ## 🗑️ Cleanup
 
-- [ ] **undotree + undofile mismatch** — Fix or remove
-  - `undofile` is `false` in options.lua, making undotree useless
-  - Either set `undofile = true` or remove the undotree plugin
-  - Comment in undotree.lua already flags this
+- [x] **undotree + undofile mismatch** — Fixed
+  - Removed external `mbbill/undotree` plugin
+  - Enabled `undofile = true` + built-in Neovim 0.12+ `nvim.undotree`
+  - Cross-platform (Windows + Linux), zero dependencies
+  - Access via `:Undotree` or `<leader>ou`

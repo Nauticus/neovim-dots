@@ -24,6 +24,26 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.clipboard = (vim.fn.has("clipboard") == 1) and "unnamedplus" or ""
 
+-- Default floating window border (applies to all floats unless overridden)
+-- Options: "none", "single", "double", "rounded", "bold", "shadow", "solid"
+-- Custom: comma-separated 8 chars clockwise from topleft, e.g. "+,-,+,|,+,-,+,|"
+vim.opt.winborder = "rounded"
+
+-- Transparent background for main window and floating windows
+-- (requires terminal/GUI with transparent background)
+-- Applied immediately AND on ColorScheme event (triggers on any theme switch)
+local function set_transparency()
+  vim.cmd([[highlight Normal guibg=NONE ctermbg=NONE]])
+  vim.cmd([[highlight NormalFloat guibg=NONE ctermbg=NONE]])
+  vim.cmd([[highlight NormalNC guibg=NONE ctermbg=NONE]])
+  vim.cmd([[highlight FloatBorder guibg=NONE ctermbg=NONE]])
+  vim.cmd([[highlight Pmenu guibg=NONE ctermbg=NONE]])
+  vim.cmd([[highlight PmenuSel guibg=NONE ctermbg=NONE]])
+end
+set_transparency()
+-- Schedule to run after pending highlights apply, preventing theme overrides
+vim.api.nvim_create_autocmd("ColorScheme", { callback = vim.schedule_wrap(set_transparency) })
+
 -- Disable unused builtin plugins
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -38,9 +58,10 @@ vim.g.loaded_tutor_mode_plugin = 1
 vim.api.nvim_set_hl(0, "MiniClueDescSingle", { fg = "#d4d4d4" })
 vim.api.nvim_set_hl(0, "MiniClueDescGroup", { fg = "#d4d4d4" })
 
--- Persistent undo disabled (IO-throttled machines)
+-- Persistent undo enabled (required for cross-session :Undotree history)
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
-vim.opt.undofile = false
+vim.opt.undofile = true
+-- Note: nvim.undotree is loaded in init.lua AFTER lazy.nvim setup
 
 -- IO reduction
 vim.opt.updatetime = 500   -- CursorHold trigger (document highlight), swap file write
