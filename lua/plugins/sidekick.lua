@@ -5,8 +5,15 @@ return {
   -- which breaks NES (Next Edit Suggestions) since it misses TextChanged events.
   -- Start the Copilot LSP server for NES (Next Edit Suggestions)
   -- Per sidekick docs: "must be enabled with vim.lsp.enable"
+  -- Note: don't let mason-lspconfig auto-setup copilot — vim.lsp.enable handles it here.
   init = function()
-    pcall(vim.lsp.enable, "copilot")
+    -- blink.cmp might not be loaded in init; pass capabilities if available
+    local capabilities
+    local ok, blink = pcall(require, "blink.cmp")
+    if ok then
+      capabilities = blink.get_lsp_capabilities()
+    end
+    pcall(vim.lsp.enable, "copilot", { capabilities = capabilities })
   end,
   config = function()
     require("sidekick").setup({
