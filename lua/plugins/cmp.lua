@@ -34,16 +34,13 @@ return {
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif require("luasnip").expand_or_locally_jumpable() then
-            require("luasnip").expand_or_jump()
-          elseif vim.lsp.inline_completion.get() then
-            -- inline completion accepted
-          elseif pcall(require, "sidekick") and require("sidekick").nes_jump_or_apply() then
-            -- NES handled
+          elseif luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
           else
             fallback()
           end
         end, { "i", "s" }),
+
         ["<C-n>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()

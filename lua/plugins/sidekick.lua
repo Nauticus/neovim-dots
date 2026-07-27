@@ -29,7 +29,12 @@ return {
       },
     })
 
-    -- Tab for NES is handled in cmp.lua (nvim-cmp integration)
+    -- Follow docs: inline completion on Tab
+    vim.keymap.set('i', '<Tab>', function()
+      if not vim.lsp.inline_completion.get() then
+        return '<Tab>'
+      end
+    end, { expr = true, desc = 'Accept the current inline completion' })
   end,
   keys = {
     {
