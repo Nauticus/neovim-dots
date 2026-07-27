@@ -90,27 +90,12 @@ return {
   -- nvim-treesitter: parser + query installation (Neovim 0.12+)
   -- Highlighting, folds, indent are built into Neovim 0.12.
   -- This plugin provides queries and :TSInstall / :TSUpdate commands.
+  -- Per docs: "This plugin does not support lazy-loading."
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter").setup()
-      -- Install parsers on first load / sync
-      require("nvim-treesitter").install({
-        "lua",
-        "vim",
-        "vimdoc",
-        "markdown",
-        "markdown_inline",
-        "javascript",
-        "typescript",
-        "tsx",
-        "svelte",
-        "python",
-        "toml",
-      })
-    end,
+    opts = {}, -- setup() is called automatically by lazy.nvim with opts
   },
 
   -- nvim-treesitter-textobjects: vaf, daF, ]m, [m, etc.
