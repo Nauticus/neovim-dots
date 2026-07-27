@@ -1,6 +1,11 @@
 return {
   "folke/sidekick.nvim",
   lazy = true,
+  -- Start the Copilot LSP server for NES (Next Edit Suggestions)
+  -- Per sidekick docs: "must be enabled with vim.lsp.enable"
+  init = function()
+    pcall(vim.lsp.enable, "copilot")
+  end,
   config = function()
     require("sidekick").setup({
       nes = { enabled = true },
