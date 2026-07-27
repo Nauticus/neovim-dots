@@ -28,20 +28,15 @@ return {
         },
       },
     })
+
+    -- Tab for NES: jump to / apply next edit suggestion, fallback to normal tab
+    vim.keymap.set("i", "<tab>", function()
+      if not require("sidekick").nes_jump_or_apply() then
+        return "<tab>"
+      end
+    end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
   end,
   keys = {
-    {
-      "<tab>",
-      function()
-        if require("sidekick").nes_jump_or_apply() then
-          return
-        end
-        return "<tab>"
-      end,
-      mode = "i",
-      expr = true,
-      desc = "Goto/Apply Next Edit Suggestion",
-    },
     {
       "<leader>aa",
       function()
