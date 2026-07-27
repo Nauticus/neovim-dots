@@ -36,8 +36,5 @@ return {
     vim.lsp.config("*", {
       capabilities = cmp and require("cmp_nvim_lsp").default_capabilities() or nil,
     })
-
-    -- Enable inline completion globally (ghost text)
-    vim.lsp.inline_completion.enable()
   end,
 }

@@ -32,6 +32,10 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
         ["<Tab>"] = cmp.mapping(function(fallback)
+          -- Try NES first (before cmp/snippets)
+          if require("sidekick").nes_jump_or_apply() then
+            return
+          end
           if cmp.visible() then
             cmp.select_next_item()
           elseif luasnip.expand_or_locally_jumpable() then

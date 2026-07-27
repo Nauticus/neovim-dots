@@ -4,7 +4,11 @@ return {
   commit = "6b69c42",
   config = function()
     require("sidekick").setup({
-      nes = { enabled = true },
+      nes = {
+        enabled = true,
+        -- Keep defaults: triggers on ModeChanged i:n (leaving insert), TextChanged, User SidekickNesDone
+        -- clear on TextChangedI, InsertEnter, and Esc
+      },
       cli = {
         tools = {
           pi = {
@@ -29,12 +33,20 @@ return {
       },
     })
 
-    -- Follow docs: inline completion on Tab
-    vim.keymap.set('i', '<Tab>', function()
-      if not vim.lsp.inline_completion.get() then
+    -- NES: <Tab> jumps to edit position or applies the suggestion
+    -- Works in both normal mode (main) and insert mode (fallback)
+    -- See: https://github.com/folke/sidekick.nvim#-installation
+    vim.keymap.set(
+      { 'i', 'n' },
+      '<Tab>',
+      function()
+        if require('sidekick').nes_jump_or_apply() then
+          return
+        end
         return '<Tab>'
-      end
-    end, { expr = true, desc = 'Accept the current inline completion' })
+      end,
+      { expr = true, desc = 'Jump/Apply Next Edit Suggestion' }
+    )
   end,
   keys = {
     {
