@@ -30,6 +30,14 @@ return {
     { "<leader>fH", "<Cmd>Telescope command_history<CR>", desc = "Command history" },
     { "<leader>fa", "<Cmd>Telescope registers<CR>", desc = "Registers" },
     { "<leader>fR", "<Cmd>Telescope resume<CR>", desc = "Resume" },
+    { "<leader>fg", function()
+        local builtin = require("telescope.builtin")
+        local saved_reg = vim.fn.getreg("v")
+        vim.cmd[[noautocmd sil norm! "vy]]
+        local selection = vim.fn.getreg("v")
+        vim.fn.setreg("v", saved_reg)
+        builtin.live_grep({ default_text = selection })
+      end, mode = "v", desc = "Live grep visual selection" },
   },
   config = function()
     local telescope = require("telescope")
