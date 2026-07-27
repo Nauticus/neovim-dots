@@ -28,7 +28,7 @@ return {
 
     -- mason-lspconfig: installs LSP binaries & auto-enables them via vim.lsp.enable()
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "tailwindcss", "copilot" },
+      ensure_installed = { "lua_ls", "tailwindcss" },
     })
 
     -- Apply nvim-cmp capabilities globally to all LSP servers
