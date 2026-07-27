@@ -31,6 +31,17 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif require("luasnip").expand_or_locally_jumpable() then
+            require("luasnip").expand_or_jump()
+          elseif pcall(require, "sidekick") and require("sidekick").nes_jump_or_apply() then
+            -- NES handled
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
         ["<C-n>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()

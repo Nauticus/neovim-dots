@@ -29,12 +29,7 @@ return {
       },
     })
 
-    -- Tab for NES: jump to / apply next edit suggestion, fallback to normal tab
-    vim.keymap.set("i", "<tab>", function()
-      if not require("sidekick").nes_jump_or_apply() then
-        return "<Tab>"
-      end
-    end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
+    -- Tab for NES is handled in cmp.lua (nvim-cmp integration)
   end,
   keys = {
     {
