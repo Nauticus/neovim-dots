@@ -44,12 +44,6 @@ return {
           end
         end, { "i", "s" }),
         ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if require("sidekick").nes_jump_or_apply() then
-            return
-          end
-          fallback()
-        end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()

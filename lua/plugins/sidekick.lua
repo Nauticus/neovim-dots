@@ -31,6 +31,18 @@ return {
   end,
   keys = {
     {
+      "<tab>",
+      function()
+        if require("sidekick").nes_jump_or_apply() then
+          return
+        end
+        return "<tab>"
+      end,
+      mode = "i",
+      expr = true,
+      desc = "Goto/Apply Next Edit Suggestion",
+    },
+    {
       "<leader>aa",
       function()
         require("sidekick.cli").select()
