@@ -29,7 +29,7 @@ return {
   end,
   keys = {
     {
-      "<leader>a",
+      "<leader>aa",
       function()
         require("sidekick.cli").toggle({ name = "pi", focus = true })
       end,
