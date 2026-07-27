@@ -3,7 +3,7 @@ return {
   event = "VeryLazy",
   config = function()
     require("sidekick").setup({
-      nes = { enabled = false },
+      nes = { enabled = true },
       cli = {
         tools = {
           pi = {
