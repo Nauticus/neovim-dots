@@ -36,8 +36,8 @@ return {
             cmp.select_next_item()
           elseif require("luasnip").expand_or_locally_jumpable() then
             require("luasnip").expand_or_jump()
-          elseif vim.lsp.inline_completion.is_enabled() and vim.lsp.inline_completion.get() then
-            -- ghost text (inline completion) accepted
+          elseif vim.lsp.inline_completion.get() then
+            -- inline completion accepted
           elseif pcall(require, "sidekick") and require("sidekick").nes_jump_or_apply() then
             -- NES handled
           else
