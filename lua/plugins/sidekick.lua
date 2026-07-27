@@ -1,5 +1,6 @@
 return {
   "folke/sidekick.nvim",
+  event = "VeryLazy", -- load at startup so NES catches TextChanged events
   -- Don't set lazy = true — sidekick handles its own lazy loading internally.
   -- lazy = true overrides this and delays loading until a keymap triggers,
   -- which breaks NES (Next Edit Suggestions) since it misses TextChanged events.
