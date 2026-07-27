@@ -7,7 +7,9 @@ return {
     "nvim-tree/nvim-web-devicons",
     {
       "nvim-telescope/telescope-fzf-native.nvim",
-      build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release --target install",
+      -- Build with cmake; uses ; for cross-platform shell compat (pwsh + bash)
+      -- Falls back to native Lua sorter silently if cmake/C compiler unavailable
+      build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release ; cmake --build build --config Release --target install",
     },
     { "nvim-telescope/telescope-ui-select.nvim", lazy = false },
   },

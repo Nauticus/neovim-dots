@@ -16,7 +16,7 @@ vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.wrap = false
 
-vim.opt.list = true  -- show trailing whitespace (trail: -), tabs, etc.
+vim.opt.list = true -- show trailing whitespace (trail: -), tabs, etc.
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -66,7 +66,7 @@ vim.opt.undofile = true
 -- Note: nvim.undotree is loaded in init.lua AFTER lazy.nvim setup
 
 -- IO reduction
-vim.opt.updatetime = 500   -- CursorHold trigger (document highlight), swap file write
+vim.opt.updatetime = 500 -- CursorHold trigger (document highlight), swap file write
 vim.opt.updatecount = 1000
 vim.opt.directory = vim.fn.stdpath("data") .. "/swap//"
 vim.opt.backup = false
@@ -88,12 +88,16 @@ vim.opt.diffopt = {
 }
 
 -- Windows: pwsh shell config
+-- Per :help *shell-pwsh*: don't override shellpipe/shellredir — neovim auto-detects
+-- "pwsh" and sets "2>&1| tee" / ">" defaults which work correctly in pwsh.
+-- shellcmdflag adds $PSStyle.OutputRendering to prevent ANSI escape issues.
 if vim.fn.has("win32") == 1 then
   vim.o.shell = "pwsh"
-  vim.o.shellcmdflag = "-NoProfile -Command "
-  vim.o.shellpipe = "> %s 2>&1"
+  vim.o.shellcmdflag = "-NoProfile -Command $PSStyle.OutputRendering = 'PlainText';"
   vim.o.shellquote = ""
   vim.o.shellxquote = ""
   vim.o.shelltemp = false
   vim.o.shellslash = true
+  -- Workaround for pwsh ANSI escape sequences (may not be needed in pwsh 7+)
+  vim.env.__SuppressAnsiEscapeSequences = "1"
 end

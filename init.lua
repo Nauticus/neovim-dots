@@ -3,6 +3,8 @@
 require("options")
 require("keymaps")
 
+vim.cmd("colorscheme catppuccin")
+
 -- Lazy-load plugins after a short delay (reduces startup IO burst)
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   group = vim.api.nvim_create_augroup("LazyPluginTrigger", { clear = true }),

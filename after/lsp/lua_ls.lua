@@ -16,8 +16,8 @@ return {
       workspace = {
         checkThirdParty = false,
         library = {
-          -- Additional runtime libraries beyond what LuaDev provides
-          vim.fn.expand "$HOME/.config/nvim"},
+          -- Additional runtime libraries beyond what LuaDev provides (cross-platform)
+          vim.fn.stdpath("config")},
       },
     },
   },
