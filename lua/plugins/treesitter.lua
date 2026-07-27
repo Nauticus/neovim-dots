@@ -87,10 +87,34 @@ function M.setup_repeat_keys()
 end
 
 return {
+  -- nvim-treesitter: parser + query installation (Neovim 0.12+)
+  -- Highlighting, folds, indent are built into Neovim 0.12.
+  -- This plugin provides queries and :TSInstall / :TSUpdate commands.
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    config = function()
+      require("nvim-treesitter").setup()
+      -- Install parsers on first load / sync
+      require("nvim-treesitter").install({
+        "lua",
+        "vim",
+        "vimdoc",
+        "markdown",
+        "markdown_inline",
+        "javascript",
+        "typescript",
+        "tsx",
+        "svelte",
+        "python",
+        "toml",
+      })
+    end,
+  },
+
   -- nvim-treesitter-textobjects: vaf, daF, ]m, [m, etc.
   -- Docs: ~/.local/share/nvim/lazy/nvim-treesitter-textobjects/README.md
-  -- Note: nvim-treesitter itself is NOT needed on Neovim 0.12+
-  -- (highlighting, indent, folds are built-in). Only textobjects remains.
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     event = "VeryLazy",
