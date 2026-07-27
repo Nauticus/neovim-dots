@@ -1,6 +1,7 @@
 return {
   "folke/sidekick.nvim",
-  event = "VeryLazy",
+  lazy = false,
+  commit = "6b69c42",
   config = function()
     require("sidekick").setup({
       nes = { enabled = true },
