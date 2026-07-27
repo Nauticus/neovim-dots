@@ -3,12 +3,13 @@ return {
   event = "VeryLazy",
   config = function()
     require("sidekick").setup({
-      nes = { enabled = false },
+      nes = { enabled = true },
       cli = {
         tools = {
           pi = {
             cmd = { "pi" },
           },
+          copilot = {},
         },
         context = {
           messages = function()
@@ -41,6 +42,13 @@ return {
         require("sidekick.cli").toggle({ name = "pi", focus = true })
       end,
       desc = "Toggle Pi",
+    },
+    {
+      "<leader>ac",
+      function()
+        require("sidekick.cli").toggle({ name = "copilot", focus = true })
+      end,
+      desc = "Toggle Copilot CLI",
     },
     {
       "<leader>at",
