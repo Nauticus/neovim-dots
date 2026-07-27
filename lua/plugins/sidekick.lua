@@ -1,6 +1,8 @@
 return {
   "folke/sidekick.nvim",
-  lazy = true,
+  -- Don't set lazy = true — sidekick handles its own lazy loading internally.
+  -- lazy = true overrides this and delays loading until a keymap triggers,
+  -- which breaks NES (Next Edit Suggestions) since it misses TextChanged events.
   -- Start the Copilot LSP server for NES (Next Edit Suggestions)
   -- Per sidekick docs: "must be enabled with vim.lsp.enable"
   init = function()
