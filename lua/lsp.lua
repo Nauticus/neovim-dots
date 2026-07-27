@@ -1,5 +1,5 @@
 -- LSP keymaps and diagnostics config
--- Server configs are in: after/lsp/<name>.lua
+-- Server configs are in: lsp/<name>.lua
 -- All servers auto-enabled by mason-lspconfig
 
 -- Neovim 0.12 builtin LSP keymaps (no plugin needed):
@@ -113,7 +113,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     -- client.config.capabilities.workspace.didChangeWatchedFiles = { dynamicRegistration = false }
 
     -- Reduce LSP logging verbosity (LSP servers write their own logs)
-    -- Set per-server in after/lsp/<name>.lua if needed:
+    -- Set per-server in lsp/<name>.lua if needed:
     --   settings = { <server> = { logLevel = "warn" } }
   end,
 })
