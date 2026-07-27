@@ -87,32 +87,10 @@ function M.setup_repeat_keys()
 end
 
 return {
-  -- nvim-treesitter: parsers + queries (highlighting, indents, folds, etc.)
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    opts = {
-      ensure_installed = {
-        "lua",
-        "vim",
-        "vimdoc",
-        "markdown",
-        "markdown_inline",
-        "javascript",
-        "typescript",
-        "tsx",
-        "jsx",
-        "svelte",
-        "python",
-        "toml",
-      },
-      highlight = { enable = true },
-      indent = { enable = true },
-    },
-  },
-
   -- nvim-treesitter-textobjects: vaf, daF, ]m, [m, etc.
   -- Docs: ~/.local/share/nvim/lazy/nvim-treesitter-textobjects/README.md
+  -- Note: nvim-treesitter itself is NOT needed on Neovim 0.12+
+  -- (highlighting, indent, folds are built-in). Only textobjects remains.
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     event = "VeryLazy",
