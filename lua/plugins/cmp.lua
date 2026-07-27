@@ -33,15 +33,7 @@ return {
         ["<C-e>"] = cmp.mapping.abort(),
         ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
+
         ["<C-p>"] = cmp.mapping.select_prev_item(),
       }),
       sources = cmp.config.sources({
