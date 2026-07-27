@@ -10,7 +10,8 @@ M.show = function()
 
   local lines = { "Attached LSP Servers:", "" }
   for _, client in ipairs(clients) do
-    table.insert(lines, string.format("  • %s (v%s)", client.name, client.server_info.version or "unknown"))
+    local version = (client.server_info and client.server_info.version) or "unknown"
+    table.insert(lines, string.format("  • %s (v%s)", client.name, version))
   end
 
   local width = 50
