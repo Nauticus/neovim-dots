@@ -43,13 +43,6 @@ return {
       desc = "Toggle Pi",
     },
     {
-      "<leader>ac",
-      function()
-        require("sidekick.cli").toggle({ name = "copilot", focus = true })
-      end,
-      desc = "Toggle Copilot CLI",
-    },
-    {
       "<leader>at",
       function()
         require("sidekick.cli").send({ msg = "{this}" })
