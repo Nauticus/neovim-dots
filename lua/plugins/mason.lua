@@ -1,5 +1,5 @@
 -- Mason: installs all tool binaries (LSP servers + formatters)
--- mason-lspconfig: connects Mason-installed LSP servers to Neovim
+-- mason-lspconfig: automatically enables installed servers via vim.lsp.enable()
 return {
   "mason-org/mason.nvim",
   lazy = false,
@@ -9,12 +9,9 @@ return {
     "williamboman/mason-lspconfig.nvim",
   },
   config = function()
+    -- Mason: installs binaries
     require("mason").setup({
       ensure_installed = {
-        -- LSP servers
-        "lua_ls",
-        "tailwindcss",
-        -- Formatters (conform.nvim calls these binaries)
         "stylua",
         "prettier",
         "black",
@@ -29,15 +26,14 @@ return {
       },
     })
 
-    -- Connect Mason LSP servers to Neovim
+    -- mason-lspconfig: installs LSP binaries & auto-enables them via vim.lsp.enable()
     require("mason-lspconfig").setup({
-      automatic_installation = true,
-      handlers = {
-        function(server)
-          local capabilities = require("blink.cmp").get_lsp_capabilities()
-          require("lspconfig")[server].setup({ capabilities = capabilities })
-        end,
-      },
+      ensure_installed = { "lua_ls", "tailwindcss" },
+    })
+
+    -- Apply blink.cmp capabilities globally to all LSP servers
+    vim.lsp.config("*", {
+      capabilities = require("blink.cmp").get_lsp_capabilities(),
     })
   end,
 }
