@@ -12,6 +12,7 @@ return {
     require("mason").setup({
       ensure_installed = {
         -- LSP servers
+        "copilot",
         "lua_ls",
         "tailwindcss",
         -- Formatters (conform.nvim calls these binaries)
