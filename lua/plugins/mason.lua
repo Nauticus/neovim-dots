@@ -31,9 +31,10 @@ return {
       ensure_installed = { "lua_ls", "tailwindcss", "copilot" },
     })
 
-    -- Apply blink.cmp capabilities globally to all LSP servers
+    -- Apply nvim-cmp capabilities globally to all LSP servers
+    local cmp = pcall(require, "cmp_nvim_lsp")
     vim.lsp.config("*", {
-      capabilities = require("blink.cmp").get_lsp_capabilities(),
+      capabilities = cmp and require("cmp_nvim_lsp").default_capabilities() or nil,
     })
   end,
 }

@@ -11,6 +11,7 @@ return {
       -- Plugins resolved automatically from lazy.nvim
       "lazy.nvim",
       "mini.nvim",
+      "nvim-cmp",
       "oil.nvim",
       "sidekick.nvim",
     },
