@@ -36,17 +36,23 @@ return {
     {
       "<leader>aa",
       function()
+        require("sidekick.cli").select()
+      end,
+      desc = "Select CLI Tool",
+    },
+    {
+      "<leader>ap",
+      function()
         require("sidekick.cli").toggle({ name = "pi", focus = true })
       end,
       desc = "Toggle Pi",
     },
     {
-      "<leader>ap",
+      "<leader>ac",
       function()
-        require("sidekick.cli").prompt()
+        require("sidekick.cli").toggle({ name = "copilot", focus = true })
       end,
-      mode = { "n", "x" },
-      desc = "Select Prompt",
+      desc = "Toggle Copilot CLI",
     },
     {
       "<leader>at",
