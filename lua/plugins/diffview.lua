@@ -29,7 +29,7 @@ return {
       end,
       desc = "Diff against main/master",
     },
-    { "<leader>gl", ".<cmd>DiffviewFileHistory --follow<cr>", desc = "Line history" },
+    { "<leader>gl", "<cmd>DiffviewFileHistory --follow<cr>", desc = "Line history" },
 
   },
   opts = {

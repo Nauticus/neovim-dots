@@ -29,8 +29,9 @@ return {
     conform.setup({
       -- format_on_save writes the file on every save.
       -- On IO-throttled machines, consider disabling and using <leader>cf manually.
+      -- Windows note: prettier (Node.js) has cold-start overhead, 500ms won't cut it.
       format_on_save = {
-        timeout_ms = 500,
+        timeout_ms = (vim.fn.has("win32") == 1) and 3000 or 500,
         lsp_fallback = true,
       },
       -- On heavily throttled machines, uncomment this to disable auto-format on save:
